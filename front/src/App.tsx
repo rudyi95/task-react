@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.scss';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import Header from 'layout/Header/Header'
+import useRoutes from 'utils/routes'
+import styles from './App.module.scss'
+import Button from 'components/Button/Button'
+import { IButtonStyleTypes } from 'utils/types'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IButtonProps {
+  id: string
+  name: string
+  link: string
+  style: IButtonStyleTypes
 }
 
-export default App;
+const buttons: IButtonProps[] = [
+  {
+    id: '0',
+    name: 'Question',
+    link: '/question',
+    style: 'mainButtonStyle',
+  },
+  {
+    id: '1',
+    name: 'Tasks',
+    link: '/tasks',
+    style: 'mainButtonStyle',
+  },
+  {
+    id: '3',
+    name: 'Home',
+    link: '/home',
+    style: 'mainButtonStyle',
+  },
+]
+
+const App: React.FC = () => {
+  let navigate = useNavigate()
+
+  const routes = useRoutes()
+
+  const navigation = buttons.map((button) => (
+    <Button
+      onClick={() => navigate(button.link)}
+      buttonStyle="fourthButtonStyle"
+      key={button.id}
+    >
+      <p>{button.name}</p>
+    </Button>
+  ))
+
+  return (
+    <div className={styles.app}>
+      <div className={styles.backFon}>
+        <Header>{navigation}</Header>
+        {routes}
+      </div>
+    </div>
+  )
+}
+
+export default App

@@ -1,0 +1,59 @@
+.backFon {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1px);
+  display: none;
+}
+
+.opened {
+  display: block;
+  z-index: 1;
+}
+
+.createArea {
+  border-radius: 5px;
+  height: 130px;
+  width: 350px;
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  margin: -100px 0 0 -175px;
+  background-color: #fff;
+  display: none;
+}
+
+.openedCreate {
+  display: block;
+  z-index: 1;
+}
+
+
+.close {
+  height: 0%;
+  display: none;
+}
+
+.closeIcon {
+  background-image: url(../../assets/icon/closeIcon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15px;
+  width: 25px;
+  height: 25px;
+}
+
+.closeIconPosition {
+  position: absolute;
+  top: 1%;
+  right: 0%;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 22px;
+  color: rgb(117, 117, 117);
+}
