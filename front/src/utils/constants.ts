@@ -8,8 +8,10 @@
 
 export const ROUTES = {
   home: '/',
+  study: '/study',
   question: '/question',
   tasks: '/tasks',
+  words: '/words',
 }
 
 // export const storageDataName = 'userData'
