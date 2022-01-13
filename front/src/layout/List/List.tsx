@@ -1,4 +1,3 @@
-import Product from 'components/Product/Product'
 import React, { useRef, useState } from 'react'
 import styles from './List.module.scss'
 
@@ -63,17 +62,7 @@ const List: React.FC = ({ children }) => {
           />
         </form>
 
-        <div>
-          {product.map((data) => (
-            <Product
-              key={data.id}
-              nama={data.name}
-              count={data.count}
-              weight={data.weight}
-              productId={data.id}
-            />
-          ))}
-        </div>
+        <div></div>
       </div>
     </div>
   )

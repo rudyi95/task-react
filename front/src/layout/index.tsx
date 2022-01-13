@@ -1,0 +1,6 @@
+export { default as Home } from './Home/Home'
+export { default as Header } from './Header/Header'
+export { default as Question } from './Question/Question'
+export { default as Study } from './Study/Study'
+export { default as Tasks } from './Tasks/Tasks'
+export { default as Words } from './Words/Words'
