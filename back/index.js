@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const mongoose = require('mongoose')
 
 app.use(express.json())
 app.use(
@@ -11,6 +12,20 @@ app.use(
 
 app.use('/study', require('./routes/study'))
 
-app.listen(5000, () => {
-  console.log('Start on port 5000.....')
-})
+const asyncStart = async () => {
+  try {
+    await mongoose.connect(
+      'mongodb+srv://Oleg:1234567890@react.9fxwt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      {
+        useNewUrlParser: true,
+      }
+    )
+    app.listen(5000, () => {
+      console.log('Start on port 5000.....')
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+asyncStart()

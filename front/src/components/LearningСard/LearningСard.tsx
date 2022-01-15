@@ -22,15 +22,16 @@ const LearningСard: React.FC<LearningСardProps> = ({ title, link }) => {
 
   return (
     <div className={styles.card}>
-      <h3 className={styles.title}>{title}</h3>
-      <Button
+      <button
+        type="button"
+        className={styles.buttonField}
         onClick={() => {
           asyncFunc()
           navigate(`${ROUTES.study}${link}`)
         }}
       >
-        Start
-      </Button>
+        <h3 className={styles.title}>{title}</h3>
+      </button>
     </div>
   )
 }

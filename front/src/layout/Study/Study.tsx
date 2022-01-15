@@ -9,9 +9,9 @@ const Study: React.FC = () => {
     <div>
       <h1 className={styles.title}>What do you want to learn?</h1>
       <div className={styles.cardPosition}>
-        <LearningСard title="Question" link={ROUTES.question}/>
-        <LearningСard title="Tasks" link={ROUTES.tasks}/>
-        <LearningСard title="Words" link={ROUTES.words}/>
+        <LearningСard title="Question" link={ROUTES.question} />
+        <LearningСard title="Tasks" link={ROUTES.tasks} />
+        <LearningСard title="Words" link={ROUTES.words} />
       </div>
     </div>
   )

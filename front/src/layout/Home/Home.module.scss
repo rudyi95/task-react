@@ -1,9 +1,20 @@
-.back {
-  background-color: aqua;
-  position: relative;
+.title {
+  margin-top: 100px;
+  font-size: 50px;
 }
 
-.position {
-  margin: auto auto;
-  position: absolute;
+.info {
+  font-size: 30px;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+
+.technology {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.btn {
+  font-size: 14px;
+  padding: 0px 10px;
 }
