@@ -4,20 +4,33 @@
   width: 25%;
   margin-top: 20px;
   border-radius: 25px;
-  border: 5px solid #949bbe;
   transition: 0.5s;
 
   &:hover {
     height: 350px;
     width: 30%;
     transition: 0.5s;
-    background-color: #efe787;
-    border: 5px solid #ced7ff;
   }
 }
 
 .title {
   font-weight: 400;
-  margin-top: 5px;
+  margin-top: -150px;
+  margin-bottom: 0;
   color: #694441;
+  user-select: none;
+}
+
+.buttonField {
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 5px solid #949bbe;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
+  &:hover {
+    transition: 0.5s;
+    background-color: #efe787;
+    border: 5px solid #ced7ff;
+  }
 }
