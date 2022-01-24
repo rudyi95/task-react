@@ -12,23 +12,12 @@ interface LearningСardProps {
 
 const LearningСard: React.FC<LearningСardProps> = ({ title, link }) => {
   const navigate = useNavigate()
-
-  const asyncFunc = async () => {
-    const res = await fetch(`${BASIC_URL}${ROUTES.study}${link}`)
-    const ques = await res.json()
-
-    return ques
-  }
-
   return (
     <div className={styles.card}>
       <button
         type="button"
         className={styles.buttonField}
-        onClick={() => {
-          asyncFunc()
-          navigate(`${ROUTES.study}${link}`)
-        }}
+        onClick={() => navigate(`${ROUTES.study}${link}`)}
       >
         <h3 className={styles.title}>{title}</h3>
       </button>

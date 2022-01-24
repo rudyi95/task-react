@@ -1,62 +1,41 @@
+import axios from 'axios'
 import { AccordionAnswer } from 'components'
-import React from 'react'
+import { accessSync } from 'fs'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from 'store/hooks/redux'
+import { fetchQuestion } from 'store/reducers/ActionCreators'
+import { questionSlice } from 'store/reducers/QuestionSlice'
+import { QUESTION_LINK } from 'utils/httpLinks'
 import styles from './Question.module.scss'
 
-const que = [
-  {
-    id: 'dsfsd',
-    question: 'Що таке LocalStoreg',
-    answer: '1111111111111111',
-  },
-  {
-    id: 'hgfg',
-    question: 'Що таке React',
-    answer: '2222222222222222222222',
-  },
-  {
-    id: 'sdfsd',
-    question: 'Що таке метод map',
-    answer: '33333333333333333333333',
-  },
-  {
-    id: 'jhgff',
-    question: 'Що робить toUpperCase()',
-    answer: '44444444444444444444444444',
-  },
-  {
-    id: 'jhgff',
-    question: 'Що робить toUpperCase()',
-    answer: '5555555555555555555555',
-  },
-  {
-    id: 'jhgff',
-    question: 'Що робить toUpperCase()',
-    answer: '66666666666666666',
-  },
-  {
-    id: 'jhgff',
-    question: 'Що робить toUpperCase()',
-    answer: '77777777777777777777',
-  },
-]
-
 const Question: React.FC = () => {
-  let da
-  const onClick = (que: any) => {
-    const randomIndex = Math.floor(Math.random() * que.length)
-    const obj = que[randomIndex]
-    console.log(obj)
-    return (da = que[randomIndex])
+  const { question, isLoading, error } = useAppSelector(
+    (state) => state.questionReducer
+  )
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(fetchQuestion())
+  }, [])
+  console.log(question)
+
+  const onClick = () => {
+    return dispatch(fetchQuestion())
   }
-  console.log(da)
 
   return (
     <>
-      <div>
-        <p>fgsdfvgdf</p>
-        <AccordionAnswer answer="dfvfdvdfvfdv" />
-      </div>
-      <button onClick={() => onClick(que)} type="submit">
+      {isLoading && <h1>Loading</h1>}
+      {error && <h1>{error}</h1>}
+      {question.map((data) => (
+        <div>
+          <p>{data.question}</p>
+          <AccordionAnswer answer={data.answer} />
+        </div>
+      ))}
+      <button onClick={() => onClick()} type="submit">
         Next
       </button>
     </>
