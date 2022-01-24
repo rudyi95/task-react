@@ -5,4 +5,4 @@ const schema = new Schema({
   answer: { type: String, required: true },
 })
 
-module.exports = model('Task', schema)
+module.exports = model('TaskQustion', schema)
