@@ -9,4 +9,6 @@ export interface IWord {
   _id: string
   engWord: string
   uaWord: string
+  fold: number
+  know: boolean
 }

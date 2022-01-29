@@ -1,7 +1,11 @@
 import { LearningСard } from 'components'
 import React from 'react'
-import { Button } from 'react-bootstrap'
-import { ROUTES } from 'utils/constants'
+import {
+  questionInfoText,
+  ROUTES,
+  taskInfoText,
+  wordInfoText,
+} from 'utils/constants'
 import styles from './Study.module.scss'
 
 const Study: React.FC = () => {
@@ -9,9 +13,17 @@ const Study: React.FC = () => {
     <div>
       <h1 className={styles.title}>What do you want to learn?</h1>
       <div className={styles.cardPosition}>
-        <LearningСard title="Question" link={ROUTES.question} />
-        <LearningСard title="Tasks" link={ROUTES.tasks} />
-        <LearningСard title="Words" link={ROUTES.words} />
+        <LearningСard
+          title="Question"
+          text={questionInfoText}
+          link={ROUTES.questionTheme}
+        />
+        <LearningСard title="Tasks" text={taskInfoText} link={ROUTES.tasks} />
+        <LearningСard
+          title="Words"
+          text={wordInfoText}
+          link={ROUTES.wordsPages}
+        />
       </div>
     </div>
   )

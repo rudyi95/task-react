@@ -46,6 +46,7 @@ const Header: React.FC = ({ children }) => {
         <Nav style={{ marginLeft: '50px' }}>
           <Link className={`${styles.logo} ${'nav-link'}`} to="/">
             Preparation
+            <div className={styles.logoIcon} />
           </Link>
         </Nav>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

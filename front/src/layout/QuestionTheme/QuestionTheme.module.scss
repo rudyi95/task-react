@@ -1,3 +1,20 @@
+.title {
+  color: black;
+  margin-top: 10px;
+}
+
+.cardsBlock {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.cardPosition {
+  margin-right: 180px;
+  display: grid;
+  grid-template: 13fr 10fr / 7fr 2fr;
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;
@@ -52,17 +69,6 @@
   100% {
     transform: translate(24px, 0);
   }
-}
-
-.titleBlock {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  margin-left: 45px;
-}
-
-.title {
-  width: 70%;
 }
 
 .question {

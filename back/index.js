@@ -12,6 +12,9 @@ app.use(
 
 app.use('/study', require('./routes/study'))
 
+app.use('/question', require('./routes/question'))
+app.use('/words-pages', require('./routes/word'))
+
 const asyncStart = async () => {
   try {
     await mongoose.connect(
