@@ -1,2 +1,5 @@
-export { default as LearningСard } from './LearningСard/LearningСard'
 export { default as AccordionAnswer } from './AccordionAnswer/AccordionAnswer'
+export { default as LearningСard } from './LearningСard/LearningСard'
+export { default as ThemeСard } from './ThemeСard/ThemeСard'
+export { default as WordCard } from './WordCard/WordCard'
+export { default as WordPageCard } from './WordPageCard/WordPageCard'

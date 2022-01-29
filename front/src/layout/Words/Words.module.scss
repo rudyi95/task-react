@@ -1,0 +1,11 @@
+.title {
+  margin-bottom: 20px;
+}
+
+.link {
+  color: #2e2e2e;
+  text-decoration: none;
+  &:hover {
+    color: #472f76;
+  }
+}

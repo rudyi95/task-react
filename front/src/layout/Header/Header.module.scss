@@ -11,6 +11,19 @@
 .logo {
   font-size: 20px;
   font-weight: 700;
+  position: relative;
+}
+
+.logoIcon {
+  position: absolute;
+  background-image: url(../../assets/icon/flower1.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  width: 30px;
+  height: 30px;
+  top: 8px;
+  right: -25px;
 }
 
 .navBar {

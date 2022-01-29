@@ -1,17 +1,11 @@
-// export const RESPONSIVE_SIZES: string[] = [
-//   '(max-width: 576px)',
-//   '(max-width: 768px)',
-//   '(max-width: 992px)',
-// ]
-// export const RESPONSIVE_VALUE: string[] = ['SD', 'MD', 'LD']
-// export const RESPONSIVE_WHITHOUT_VALUE = 'Another'
-
 export const ROUTES = {
   home: '/',
   study: '/study',
-  question: '/question',
+  questionTheme: '/question/theme',
   tasks: '/tasks',
-  words: '/words',
+  wordsPages: '/words-pages',
 }
 
-// export const storageDataName = 'userData'
+export const questionInfoText = 'Preparation for JavaScript, React, CSS, HTML'
+export const taskInfoText = 'Tasks on JavaScript topics'
+export const wordInfoText = 'Learn English words'
