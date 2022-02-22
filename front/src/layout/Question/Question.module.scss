@@ -57,12 +57,17 @@
 .titleBlock {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-around;
   margin-left: 45px;
 }
 
 .title {
-  width: 70%;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.back {
+  width: 92px;
 }
 
 .question {

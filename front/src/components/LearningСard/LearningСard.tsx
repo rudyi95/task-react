@@ -1,9 +1,6 @@
 import React from 'react'
-import { Button, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import { ROUTES } from 'utils/constants'
-import { BASIC_URL } from 'utils/httpLinks'
 import styles from './LearningСard.module.scss'
 
 interface LearningСardProps {
@@ -22,15 +19,6 @@ const LearningСard: React.FC<LearningСardProps> = ({ title, link, text }) => {
         </Card.Body>
       </Card>
     </Link>
-    // <div className={styles.card}>
-    //   <button
-    //     type="button"
-    //     className={styles.buttonField}
-    //     onClick={() => navigate(`${ROUTES.study}${link}`)}
-    //   >
-    //     <h3 className={styles.title}>{title}</h3>
-    //   </button>
-    // </div>
   )
 }
 
