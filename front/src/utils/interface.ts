@@ -3,6 +3,9 @@ export interface IQuestion {
   question: string
   answer: string
   theme: string
+  howOffen: number
+  knew: number
+  didntKnow: number
 }
 
 export interface IWord {

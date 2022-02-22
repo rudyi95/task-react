@@ -5,7 +5,7 @@ import { ROUTES } from 'utils/constants'
 import styles from './ThemeСard.module.scss'
 
 interface ThemeСardProps {
-  themeName: string | number
+  themeName: string
   questionId: string
 }
 
@@ -13,9 +13,7 @@ const ThemeСard: React.FC<ThemeСardProps> = ({ themeName, questionId }) => {
   const navigation = useNavigate()
   return (
     <button
-      onClick={() =>
-        navigation(`${ROUTES.questionTheme}/${themeName}/${questionId}`)
-      }
+      onClick={() => navigation(`${ROUTES.questionTheme}/${themeName}`)}
       className={styles.link}
     >
       <Card className={styles.card}>

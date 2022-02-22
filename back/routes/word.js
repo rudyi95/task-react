@@ -4,29 +4,61 @@ const Word = require('../models/word')
 
 router.get('/', async (req, res) => {
   try {
-    const findWordsFold = await (await Word.find({})).map((data) => data.fold)
+    let folds = []
 
-    const folds = [...new Set(findWordsFold)]
+    await (
+      await Word.find({})
+    ).map(({ fold, _id }) => folds.push({ fold: fold, _id: _id }))
 
-    res.status(200).json(folds)
+    uniqFolds = folds.reduce(
+      (acc, cur) => [...acc.filter((obj) => obj.fold !== cur.fold), cur],
+      []
+    )
+
+    const sortUniqFolds = uniqFolds.sort((a, b) => a.fold - b.fold)
+
+    res.status(200).json(sortUniqFolds)
   } catch (error) {
     res.status(500).json({ error: 'internal server error' })
   }
 })
+
 router.get('/number=:num', async (req, res) => {
   try {
-    const { num } = req.params
-
-    if (!num) {
+    const { pageNum } = req.query
+    console.log(pageNum)
+    if (!pageNum) {
       return res.status(400).json({ error: 'invalid data' })
     }
 
-    const findWords = await Word.aggregate([
-      { $match: { fold: +num, know: false } },
+    const findWord = await Word.aggregate([
+      { $match: { fold: +pageNum, know: false } },
       { $sample: { size: 1 } },
     ])
+    const [word] = findWord
 
-    res.status(200).json(findWords)
+    res.status(200).json([word])
+  } catch (error) {
+    res.status(500).json({ error: 'internal server error' })
+  }
+})
+
+router.patch('/number=:num', async (req, res) => {
+  try {
+    const { wordId } = req.body
+    console.log(wordId)
+    if (!wordId) {
+      return res.status(400).json({ error: 'invalid data' })
+    }
+
+    const updateWord = await Word.findOneAndUpdate(
+      { _id: wordId },
+      { $set: { know: true } },
+      { new: true }
+    )
+    console.log(updateWord)
+
+    res.status(200).json(updateWord)
   } catch (error) {
     res.status(500).json({ error: 'internal server error' })
   }
