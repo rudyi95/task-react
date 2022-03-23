@@ -1,6 +1,8 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from 'store/hooks/redux'
+import { fetchWord } from 'store/reducers/ActionCreators'
 import { ROUTES } from 'utils/constants'
 import styles from './WordPageCard.module.scss'
 
@@ -9,20 +11,21 @@ interface WordPageCardProps {
   firstWordId: string
 }
 
-const WordPageCard: React.FC<WordPageCardProps> = ({
-  pageNumber,
-  firstWordId,
-}) => {
+const WordPageCard: React.FC<WordPageCardProps> = ({ pageNumber }) => {
+  const dispatch = useAppDispatch()
+  const navigation = useNavigate()
+
+  const handleClick = () => {
+    dispatch(fetchWord(pageNumber))
+    navigation(`${ROUTES.wordsPages}/number=${pageNumber}`)
+  }
   return (
-    <Link
-      to={`${ROUTES.wordsPages}/number=${pageNumber}`}
-      className={styles.link}
-    >
+    <button onClick={handleClick} className={styles.link}>
       <Card className={styles.card}>
         <p className={styles.title}>#{pageNumber}</p>
         <div className={styles.foldIcon} />
       </Card>
-    </Link>
+    </button>
   )
 }
 

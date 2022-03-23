@@ -38,7 +38,7 @@ router.get('/theme/:topic', async (req, res) => {
       { $sample: { size: 1 } },
     ])
     const [question] = findQiustion
-    console.log(question)
+    // console.log(question)
     const find = await Question.findOneAndUpdate(
       { _id: question._id },
       { $set: { howOffen: question.howOffen + 1 } },
