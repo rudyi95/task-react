@@ -3,7 +3,7 @@ import { AccordionAnswer, StatisticsTable } from 'components'
 import { useAppDispatch, useAppSelector } from 'store/hooks/redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ROUTES } from 'utils/constants'
-import { fetchQuestion } from 'store/reducers/ActionCreators'
+import { fetchQuestion } from 'services/QuestionService'
 import styles from './Question.module.scss'
 
 const Question: React.FC = () => {
@@ -11,8 +11,8 @@ const Question: React.FC = () => {
     (state) => state.questionReducer
   )
   const dispatch = useAppDispatch()
-
   const navigation = useNavigate()
+
   const location = useLocation()
   const theme = location.pathname.split('/')[3]
 

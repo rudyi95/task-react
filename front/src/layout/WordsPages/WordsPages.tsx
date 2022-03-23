@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { WordPageCard } from 'components'
 import { useAppDispatch, useAppSelector } from 'store/hooks/redux'
-import { fetchWordFolds } from 'store/reducers/ActionCreators'
 import styles from './WordsPages.module.scss'
+import { fetchWordFolds } from 'services/WordService'
 
 const WordsPages: React.FC = () => {
   const { word, isLoading, error } = useAppSelector(

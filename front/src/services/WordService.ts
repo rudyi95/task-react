@@ -1,37 +1,75 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
-import { FetchArgs } from '@reduxjs/toolkit/dist/query'
-import { ROUTES } from 'utils/constants'
-import { BASIC_URL } from 'utils/httpLinks'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { WORD_PAGES_LINK } from 'utils/httpLinks'
 import { IWord } from 'utils/interface'
+import axios from 'axios'
 
-export const wordAPI = createApi({
-  reducerPath: 'wordAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: BASIC_URL }),
-  endpoints: (build) => ({
-    // fetchWordFolds: build.query<Omit<IWord[], 'engWord' | 'uaWord'>, number>({
-    //   query: () => ({
-    //     url: ROUTES.wordsPages,
-    //   }),
-    // }),
-    // fetchWord: build.query<IWord, number>({
-    //   query: (pageNum) => {
-    //     return {
-    //       url: `${ROUTES.wordsPages}/number=${pageNum}`,
-    //       params: { pageNum },
-    //     }
-    //     // &wordId=${wordId}
-    //   },
-    // }),
-    // knowWord: build.mutation<IWord, { pageNum: number; wordId: string }>({
-    //   query: (arg) => {
-    //     const { pageNum, wordId } = arg
-    //     console.log(pageNum, wordId)
-    //     return {
-    //       url: `${ROUTES.wordsPages}/number=${pageNum}&wordId=${wordId}`,
-    //       method: 'PATCH',
-    //       body: { pageNum, wordId },
-    //     }
-    //   },
-    // }),
-  }),
-})
+interface IKnowWordProps {
+  wordId: string
+  pageNum: number
+  controller: number
+}
+
+export const fetchWordFolds = createAsyncThunk(
+  'word/folds',
+  async (_, thunkApi) => {
+    try {
+      const res = await axios.get<Omit<IWord[], 'engWord' | 'uaWord'>>(
+        WORD_PAGES_LINK
+      )
+
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message)
+    }
+  }
+)
+
+export const fetchWord = createAsyncThunk(
+  'word/page',
+  async (pageNum: number, thunkApi) => {
+    try {
+      const res = await axios.get<IWord[]>(
+        `${WORD_PAGES_LINK}/number=${pageNum}`
+      )
+
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message)
+    }
+  }
+)
+
+export const knowWord = createAsyncThunk(
+  'word/know',
+  async (arg: IKnowWordProps, thunkApi) => {
+    try {
+      const { pageNum, wordId, controller } = arg
+
+      const res = await axios.patch<IWord[]>(
+        `${WORD_PAGES_LINK}/number=${pageNum}`,
+        { wordId, controller }
+      )
+
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message)
+    }
+  }
+)
+export const repeatWord = createAsyncThunk(
+  'word/reapet',
+  async (arg: IKnowWordProps, thunkApi) => {
+    try {
+      const { pageNum, wordId, controller } = arg
+
+      const res = await axios.patch<IWord[]>(
+        `${WORD_PAGES_LINK}/number=${pageNum}`,
+        { wordId, controller }
+      )
+
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message)
+    }
+  }
+)

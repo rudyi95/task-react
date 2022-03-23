@@ -1,50 +1,57 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
-import { ROUTES } from 'utils/constants'
-import { BASIC_URL } from 'utils/httpLinks'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { QUESTION_THEME_LINK } from 'utils/httpLinks'
 import { IQuestion } from 'utils/interface'
+import axios from 'axios'
 
-export const questionAPI = createApi({
-  reducerPath: 'questionAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: BASIC_URL }),
-  tagTypes: ['Question'],
-  endpoints: (build) => ({
-    // fetchQuestionTheme: build.query<IQuestion[], string>({
-    //   query: () => ({
-    //     url: ROUTES.questionTheme,
-    //   }),
-    // }),
-    // fetchQuestion: build.query<IQuestion[], string>({
-    //   query: (theme: string) => ({
-    //     url: `${ROUTES.questionTheme}/${theme}`,
-    //   }),
-    //   // providesTags: (result) => ['Question'],
-    //   providesTags: (result, error, arg) =>
-    //     result
-    //       ? [
-    //           ...result.map(({ _id }) => ({ type: 'Question' as const, _id })),
-    //           'Question',
-    //         ]
-    //       : ['Question'],
-    // }),
-    // updateKnew: build.mutation<
-    //   IQuestion[],
-    //   {
-    //     questionTheme: string
-    //     questionId: string
-    //   }
-    // >({
-    //   query: (arg) => {
-    //     const { questionTheme, questionId } = arg
-    //     console.log(questionTheme, questionId)
-    //     return {
-    //       url: `${ROUTES.questionTheme}/${questionTheme}/${questionId}`,
-    //       method: 'PATCH',
-    //       body: { questionId },
-    //     }
-    //   },
-    //   invalidatesTags: (result, error, arg) => [
-    //     { type: 'Question', id: arg.questionId },
-    //   ],
-    // }),
-  }),
-})
+interface IUpdateKnewProps {
+  questionTheme: string
+  questionId: string
+  controlNumber: number
+}
+
+export const fetchQuestionTheme = createAsyncThunk(
+  'question/getAllTheme',
+  async (_, thunkApi) => {
+    try {
+      const res = await axios.get<IQuestion[]>(QUESTION_THEME_LINK)
+
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message)
+    }
+  }
+)
+export const fetchQuestion = createAsyncThunk(
+  'question/getCurrentTheme',
+  async (theme: string, thunkApi) => {
+    try {
+      const res = await axios.get<IQuestion[]>(
+        `${QUESTION_THEME_LINK}/${theme}`
+      )
+
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message)
+    }
+  }
+)
+
+export const updateQuestionStatistics = createAsyncThunk(
+  'question/update',
+  async (arg: IUpdateKnewProps, thunkApi) => {
+    try {
+      const { questionTheme, questionId, controlNumber } = arg
+      const res = await axios.patch<IQuestion[]>(
+        `${QUESTION_THEME_LINK}/${questionTheme}`,
+        {
+          questionId,
+          controlNumber,
+        }
+      )
+
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message)
+    }
+  }
+)

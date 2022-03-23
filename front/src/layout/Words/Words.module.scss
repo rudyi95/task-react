@@ -37,7 +37,7 @@
 }
 .lds-ellipsis div {
   position: absolute;
-  top: 15vh;
+  top: 4vh;
   width: 13px;
   height: 13px;
   border-radius: 50%;
@@ -88,4 +88,14 @@
 .message {
   display: flex;
   flex-direction: column;
+}
+
+.buttonField {
+  display: flex;
+  margin-left: 150px;
+  margin-top: 10px;
+}
+
+.next {
+  margin-left: 400px;
 }
