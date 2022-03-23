@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { ThemeСard } from 'components'
 import { useAppDispatch, useAppSelector } from 'store/hooks/redux'
+import { fetchQuestionTheme } from 'services/QuestionService'
 import styles from './QuestionTheme.module.scss'
-import { fetchQuestionTheme } from 'store/reducers/ActionCreators'
 
 const QuestionTheme: React.FC = () => {
   const { question, isLoading, error } = useAppSelector(

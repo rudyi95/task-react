@@ -47,19 +47,35 @@ router.get('/number=:num', async (req, res) => {
 
 router.patch('/number=:num', async (req, res) => {
   try {
-    const { wordId } = req.body
+    const { num } = req.params
+    const { wordId, controller } = req.body
 
-    if (!wordId) {
+    if (!wordId && controller && !num) {
       return res.status(400).json({ error: 'invalid data' })
     }
 
-    await Word.findOneAndUpdate(
-      { _id: wordId },
-      { $set: { know: true } },
-      { new: true }
-    )
+    if (controller === 1) {
+      await Word.findOneAndUpdate(
+        { _id: wordId },
+        { $set: { know: true } },
+        { new: true }
+      )
 
-    res.status(200)
+      const words = await Word.find({ fold: +num })
+
+      res.status(200).json(words)
+    }
+    if (controller === 2) {
+      await Word.findOneAndUpdate(
+        { _id: wordId },
+        { $set: { know: false } },
+        { new: true }
+      )
+
+      const words = await Word.find({ fold: +num })
+
+      res.status(200).json(words)
+    }
   } catch (error) {
     res.status(500).json({ error: 'internal server error' })
   }

@@ -2,8 +2,8 @@ import React from 'react'
 import { KnowWordsCard, WordCard } from 'components'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'store/hooks/redux'
-import { fetchWord, knowWord } from 'store/reducers/ActionCreators'
 import { ROUTES } from 'utils/constants'
+import { fetchWord, knowWord } from 'services/WordService'
 import styles from './Words.module.scss'
 
 const Words: React.FC = () => {
@@ -11,10 +11,10 @@ const Words: React.FC = () => {
     (state) => state.wordReduser
   )
 
-  const location = useLocation()
-  const navigation = useNavigate()
   const dispatch = useAppDispatch()
+  const navigation = useNavigate()
 
+  const location = useLocation()
   const pageNum = +location.pathname.split('=')[1].split('&')[0]
 
   const randomWord = () => {
@@ -27,11 +27,11 @@ const Words: React.FC = () => {
     randomWord()
   }
 
-  const knowWordFunc = async () => {
-    dispatch(knowWord({ pageNum, wordId: oneWord._id }))
-  }
-
   const oneWord = randomWord()
+
+  const knowWordFunc = (controller: number) => {
+    dispatch(knowWord({ pageNum, wordId: oneWord._id, controller }))
+  }
 
   return (
     <div>
@@ -67,21 +67,23 @@ const Words: React.FC = () => {
             </div>
           ))}
       </div>
-      <div className={styles.buttonField}>
-        <button type="button" onClick={nextWord}>
-          next
-        </button>
-        <br />
-        <button
-          type="button"
-          onClick={() => {
-            knowWordFunc()
-            nextWord()
-          }}
-        >
-          I know this word
-        </button>
-      </div>
+      {oneWord && (
+        <div className={styles.buttonField}>
+          <button
+            type="button"
+            onClick={() => {
+              knowWordFunc(1)
+              nextWord()
+            }}
+          >
+            I know this word
+          </button>
+          <button type="button" onClick={nextWord} className={styles.next}>
+            next
+          </button>
+          <br />
+        </div>
+      )}
       <KnowWordsCard word={word} />
     </div>
   )

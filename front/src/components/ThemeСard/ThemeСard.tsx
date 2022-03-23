@@ -1,8 +1,8 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import { fetchQuestion } from 'services/QuestionService'
 import { useAppDispatch } from 'store/hooks/redux'
-import { fetchQuestion } from 'store/reducers/ActionCreators'
 import { ROUTES } from 'utils/constants'
 import styles from './ThemeСard.module.scss'
 

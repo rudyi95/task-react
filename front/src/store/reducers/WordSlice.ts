@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IWord } from 'utils/interface'
 import {
-  fetchWordFolds,
   fetchWord,
+  fetchWordFolds,
   knowWord,
-  getKnowWord,
-} from './ActionCreators'
+  repeatWord,
+} from 'services/WordService'
+import { IWord } from 'utils/interface'
 
 interface WordState {
   word: IWord[]
@@ -63,15 +63,15 @@ export const wordSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
-    [getKnowWord.fulfilled.type]: (state, action: PayloadAction<IWord[]>) => {
+    [repeatWord.fulfilled.type]: (state, action: PayloadAction<IWord[]>) => {
       state.isLoading = false
       state.error = ''
       state.word = action.payload
     },
-    [getKnowWord.pending.type]: (state) => {
+    [repeatWord.pending.type]: (state) => {
       state.isLoading = true
     },
-    [getKnowWord.rejected.type]: (state, action: PayloadAction<string>) => {
+    [repeatWord.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false
       state.error = action.payload
     },

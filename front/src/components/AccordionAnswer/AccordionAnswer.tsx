@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import { updateQuestionStatistics } from 'services/QuestionService'
 import { useAppDispatch } from 'store/hooks/redux'
-import { updateQuestionStatistics } from 'store/reducers/ActionCreators'
 import styles from './AccordionAnswer.module.scss'
 
 interface IAccordionAnswerProps {
@@ -15,10 +15,11 @@ const AccordionAnswer: React.FC<IAccordionAnswerProps> = ({
   questionTheme,
 }) => {
   const [isOpened, setIsOpened] = useState(false)
+
   const dispatch = useAppDispatch()
 
-  const updateQuestion = async (controlNumber: number) => {
-    await dispatch(
+  const updateQuestion = (controlNumber: number) => {
+    dispatch(
       updateQuestionStatistics({ questionTheme, questionId, controlNumber })
     )
   }
