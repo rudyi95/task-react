@@ -3,14 +3,18 @@ import { QUESTION_THEME_LINK, WORD_PAGES_LINK } from 'utils/httpLinks'
 import { IQuestion, IWord } from 'utils/interface'
 import axios from 'axios'
 
-interface UpdateKnewProps {
+interface IUpdateKnewProps {
   questionTheme: string
   questionId: string
   controlNumber: number
 }
+interface IKnowWordProps {
+  wordId: string
+  pageNum: number
+}
 
 export const fetchQuestionTheme = createAsyncThunk(
-  'question/theme',
+  'question/getAllTheme',
   async (_, thunkApi) => {
     try {
       const res = await axios.get<IQuestion[]>(QUESTION_THEME_LINK)
@@ -22,7 +26,7 @@ export const fetchQuestionTheme = createAsyncThunk(
   }
 )
 export const fetchQuestion = createAsyncThunk(
-  'question/theme',
+  'question/getCurrentTheme',
   async (theme: string, thunkApi) => {
     try {
       const res = await axios.get<IQuestion[]>(
@@ -38,7 +42,7 @@ export const fetchQuestion = createAsyncThunk(
 
 export const updateQuestionStatistics = createAsyncThunk(
   'question/update',
-  async (arg: UpdateKnewProps, thunkApi) => {
+  async (arg: IUpdateKnewProps, thunkApi) => {
     try {
       const { questionTheme, questionId, controlNumber } = arg
       const res = await axios.patch<IQuestion[]>(
@@ -72,13 +76,46 @@ export const fetchWordFolds = createAsyncThunk(
 )
 
 export const fetchWord = createAsyncThunk(
-  'word-pages',
+  'word/page',
   async (pageNum: number, thunkApi) => {
     try {
       const res = await axios.get<IWord[]>(
         `${WORD_PAGES_LINK}/number=${pageNum}`
       )
-      console.log(res.data)
+
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message)
+    }
+  }
+)
+
+export const knowWord = createAsyncThunk(
+  'word/page',
+  async (arg: IKnowWordProps, thunkApi) => {
+    try {
+      const { pageNum, wordId } = arg
+
+      const res = await axios.patch<IWord[]>(
+        `${WORD_PAGES_LINK}/number=${pageNum}`,
+        { wordId }
+      )
+
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue((error as Error).message)
+    }
+  }
+)
+
+export const getKnowWord = createAsyncThunk(
+  'word/page',
+  async (pageNum: number, thunkApi) => {
+    try {
+      const res = await axios.get<IWord[]>(
+        `${WORD_PAGES_LINK}/number=${pageNum}/knew`
+      )
+
       return res.data
     } catch (error) {
       return thunkApi.rejectWithValue((error as Error).message)

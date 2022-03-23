@@ -22,17 +22,16 @@ export const wordAPI = createApi({
     //     // &wordId=${wordId}
     //   },
     // }),
-    knowWord: build.mutation<IWord, { pageNum: number; wordId: string }>({
-      query: (arg) => {
-        const { pageNum, wordId } = arg
-        console.log(pageNum, wordId)
-
-        return {
-          url: `${ROUTES.wordsPages}/number=${pageNum}&wordId=${wordId}`,
-          method: 'PATCH',
-          body: { pageNum, wordId },
-        }
-      },
-    }),
+    // knowWord: build.mutation<IWord, { pageNum: number; wordId: string }>({
+    //   query: (arg) => {
+    //     const { pageNum, wordId } = arg
+    //     console.log(pageNum, wordId)
+    //     return {
+    //       url: `${ROUTES.wordsPages}/number=${pageNum}&wordId=${wordId}`,
+    //       method: 'PATCH',
+    //       body: { pageNum, wordId },
+    //     }
+    //   },
+    // }),
   }),
 })

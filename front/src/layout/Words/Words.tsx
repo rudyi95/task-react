@@ -1,114 +1,88 @@
-import { ThemeСard, WordCard } from 'components'
-import React, { useEffect, useState } from 'react'
-import { Card, Carousel, ListGroup } from 'react-bootstrap'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { wordAPI } from 'services/WordService'
+import React from 'react'
+import { KnowWordsCard, WordCard } from 'components'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'store/hooks/redux'
-import { fetchWord } from 'store/reducers/ActionCreators'
-// import { fetchWord } from 'store/reducers/ActionCreators'
+import { fetchWord, knowWord } from 'store/reducers/ActionCreators'
 import { ROUTES } from 'utils/constants'
-import { IWord } from 'utils/interface'
 import styles from './Words.module.scss'
 
 const Words: React.FC = () => {
+  const { word, error, isLoading } = useAppSelector(
+    (state) => state.wordReduser
+  )
+
   const location = useLocation()
   const navigation = useNavigate()
+  const dispatch = useAppDispatch()
 
   const pageNum = +location.pathname.split('=')[1].split('&')[0]
-  const wordId = location.pathname.split('=')[2]
 
-  const { word, error } = useAppSelector((state) => state.wordReduser)
-  const dispatch = useAppDispatch()
-  console.log(word)
+  const randomWord = () => {
+    const filteredWorld = word.filter((f) => f.know === false)
+    return filteredWorld[Math.floor(Math.random() * filteredWorld.length)]
+  }
 
-  useEffect(() => {
+  const nextWord = () => {
     dispatch(fetchWord(pageNum))
-  }, [dispatch])
-
-  // const { data: word, refetch } = wordAPI.useFetchWordQuery(pageNum)
-
-  // const { fold } = word
-
-  // console.log(fold)
-
-  // const [knowWord, { error }] = wordAPI.useKnowWordMutation()
-
-  // useEffect(() => {
-  //   navigation(`${location.pathname}/${wordId}`)
-  // }, [navigation, location, wordId])
+    randomWord()
+  }
 
   const knowWordFunc = async () => {
-    // await knowWord({ pageNum, wordId })
+    dispatch(knowWord({ pageNum, wordId: oneWord._id }))
   }
 
-  // console.log(word)
-
-  const da = () => {
-    if (word) {
-      // console.log(word._id)
-
-      return (
-        <>
-          {/* <WordCard engWord={word?.engWord} uaWord={word?.uaWord} />
-          <button
-            type="button"
-            onClick={() => {
-              refetch()
-
-              navigation(
-                `${ROUTES.wordsPages}/number=${pageNum}&wordId=${word?._id}`
-              )
-            }}
-          >
-            next
-          </button> */}
-        </>
-      )
-    }
-  }
+  const oneWord = randomWord()
 
   return (
     <div>
-      <h1 className={styles.title}>Words</h1>
-      {da()}
-      {/* {words &&
-        words.map((data) => (
-          <>
-            <WordCard
-              key={data._id}
-              engWord={data.engWord}
-              uaWord={data.uaWord}
-            />
-            <button
-              type="button"
-              onClick={() => {
-                navigation(
-                  `${ROUTES.wordsPages}/number=${pageNum}&wordId=${data._id}`
-                )
-                return refetch()
-              }}
-            >
-              next
-            </button>
-          </>
-        ))} */}
-      {/* <WordCard engWord={word?.engWord} uaWord={word?.uaWord} />
-      <button
-        type="button"
-        onClick={() => {
-          navigation(
-            `${ROUTES.wordsPages}/number=${pageNum}&wordId=${word?._id}`
-          )
-          return refetch()
-        }}
-      >
-        next
-      </button> */}
-
-      <br />
-      <button type="button" onClick={knowWordFunc}>
-        I know this word
-      </button>
+      <div className={styles.titleBlock}>
+        <button
+          type="button"
+          className={styles.back}
+          onClick={() => navigation(ROUTES.wordsPages)}
+        >
+          Back to Pages
+        </button>
+        <h1 className={styles.title}>Words</h1>
+      </div>
+      {error && <h1>{error}</h1>}
+      <div className={styles.dataBlock}>
+        {(isLoading && (
+          <div className={styles['lds-ellipsis']}>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        )) ||
+          (oneWord && (
+            <>
+              <WordCard engWord={oneWord.engWord} uaWord={oneWord.uaWord} />
+            </>
+          )) ||
+          (!oneWord && (
+            <div className={styles.message}>
+              <p>Congratulations!</p>
+              <p>You have learnt 10 word</p>
+            </div>
+          ))}
+      </div>
+      <div className={styles.buttonField}>
+        <button type="button" onClick={nextWord}>
+          next
+        </button>
+        <br />
+        <button
+          type="button"
+          onClick={() => {
+            knowWordFunc()
+            nextWord()
+          }}
+        >
+          I know this word
+        </button>
+      </div>
+      <KnowWordsCard word={word} />
     </div>
   )
 }

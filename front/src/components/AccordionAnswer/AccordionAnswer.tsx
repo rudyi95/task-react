@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { questionAPI } from 'services/QuestionService'
+import React, { useState } from 'react'
 import { useAppDispatch } from 'store/hooks/redux'
 import { updateQuestionStatistics } from 'store/reducers/ActionCreators'
 import styles from './AccordionAnswer.module.scss'
@@ -17,18 +15,9 @@ const AccordionAnswer: React.FC<IAccordionAnswerProps> = ({
   questionTheme,
 }) => {
   const [isOpened, setIsOpened] = useState(false)
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  useEffect(() => {
-    // navigate(`${location.pathname}/${questionId}`)
-  }, [])
-
-  // const [updateKnew, { error }] = questionAPI.useUpdateKnewMutation()
   const dispatch = useAppDispatch()
 
   const updateQuestion = async (controlNumber: number) => {
-    // await updateKnew({ questionTheme, questionId })
     await dispatch(
       updateQuestionStatistics({ questionTheme, questionId, controlNumber })
     )

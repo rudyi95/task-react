@@ -25,19 +25,21 @@ router.get('/', async (req, res) => {
 
 router.get('/number=:num', async (req, res) => {
   try {
-    const { pageNum } = req.query
-    console.log(pageNum)
-    if (!pageNum) {
+    const { num } = req.params
+
+    if (!num) {
       return res.status(400).json({ error: 'invalid data' })
     }
 
-    const findWord = await Word.aggregate([
-      { $match: { fold: +pageNum, know: false } },
-      { $sample: { size: 1 } },
-    ])
-    const [word] = findWord
+    // const findWord = await Word.aggregate([
+    //   { $match: { fold: +num, know: false } },
+    //   { $sample: { size: 1 } },
+    // ])
 
-    res.status(200).json([word])
+    const findWord = await Word.find({ fold: +num })
+    // const [word] = findWord
+
+    res.status(200).json(findWord)
   } catch (error) {
     res.status(500).json({ error: 'internal server error' })
   }
@@ -46,19 +48,18 @@ router.get('/number=:num', async (req, res) => {
 router.patch('/number=:num', async (req, res) => {
   try {
     const { wordId } = req.body
-    console.log(wordId)
+
     if (!wordId) {
       return res.status(400).json({ error: 'invalid data' })
     }
 
-    const updateWord = await Word.findOneAndUpdate(
+    await Word.findOneAndUpdate(
       { _id: wordId },
       { $set: { know: true } },
       { new: true }
     )
-    console.log(updateWord)
 
-    res.status(200).json(updateWord)
+    res.status(200)
   } catch (error) {
     res.status(500).json({ error: 'internal server error' })
   }

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, Nav, Navbar } from 'react-bootstrap'
+import { Nav, Navbar } from 'react-bootstrap'
 import { IButtonStyleTypes } from 'utils/types'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styles from './Header.module.scss'
 
 interface IButtonProps {
@@ -26,9 +26,7 @@ const buttons: IButtonProps[] = [
   },
 ]
 
-const Header: React.FC = ({ children }) => {
-  const navigate = useNavigate()
-
+const Header: React.FC = () => {
   const nav = buttons.map((button) => (
     <Nav.Link key={button.id} className="nav-link" as={Link} to={button.link}>
       {button.name}
